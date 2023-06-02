@@ -56,7 +56,7 @@ const getAllContacts = async (req, res, next) => {
       const { id } = req.params;
       const result = await Contact.findByIdAndUpdate(id, req.body, {new: true});
       if (!result) {
-        throw HttpError(404, `Contacts with ${id} not found`);
+        throw HttpError(404, `missing field favorite`);
       }
       res.json(result);
     } 
