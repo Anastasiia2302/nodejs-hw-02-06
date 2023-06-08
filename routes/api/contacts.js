@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const contactsController = require("../../controllers/contacts-controller");
-const { schemas } = require("../../models/contact");
+const contactsController = require("../../controllers/contactsController");
+const { schemas } = require("../../schemas/contactsSchema");
 const { validateBody, isValidId } = require("../../decorators");
 
 router.get("/", contactsController.getAllContacts);
