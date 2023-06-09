@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../helpers");
 
-const {emailRegexp, subscriptionType} = require("../constants/users");
+const { emailRegexp, subscriptionType } = require("../constants/users");
 
 const userSchema = new Schema(
   {
@@ -31,12 +31,8 @@ const userSchema = new Schema(
 
 userSchema.post("save", handleMongooseError);
 
-
 const User = model("user", userSchema);
-
-
 
 module.exports = {
   User,
-
 };
