@@ -3,13 +3,18 @@ const {ctrlWrapper} = require("../decorators");
 const {Contact} = require("../models/contact");
 
 
-const getAllContacts = async (req, res, next) => {
-   
-      const result = await Contact.find();
+const getAllContacts = async (req, res) => {
+   const {_id:owner} =req.user;
+   const {page = 1, limit = 20, ...query} = req.query;
+   const skip = (page - 1) * limit;
+
+      const result = await Contact.find({owner, ...query}, "-createdAt -updatedAt", {skip, limit}).populate("owner");
+    
+      
       res.json(result);
     } 
 
-  const getContactById = async (req, res, next) => {
+  const getContactById = async (req, res) => {
     
       const { id } = req.params;
       const result = await Contact.findById(id)
@@ -20,10 +25,10 @@ const getAllContacts = async (req, res, next) => {
    
   }
 
-  const addContact = async (req, res, next) => {
+  const addContact = async (req, res ) => {
     
-      
-      const result = await Contact.create(req.body);
+      const {_id:owner} = req.user;
+      const result = await Contact.create({...req.body, owner });
       res.status(201).json(result);
     } 
 
@@ -39,7 +44,7 @@ const getAllContacts = async (req, res, next) => {
       });
     } 
 
-  const updateContactById = async (req, res, next) => {
+  const updateContactById = async (req, res) => {
     
      
       const { id } = req.params;
