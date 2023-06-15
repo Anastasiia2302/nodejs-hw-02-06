@@ -13,7 +13,7 @@ router.get("/", contactsController.getAllContacts);
 router.get("/:id", isValidId, contactsController.getContactById);
 
 router.post(
-  "/",
+  "/", 
   validateBody(schemas.contactAddSchema),
   contactsController.addContact
 );
@@ -33,5 +33,7 @@ router.patch(
   validateBody(schemas.updateFavoriteSchema),
   contactsController.updateFavorite
 );
+
+
 
 module.exports = router;
